@@ -28,10 +28,17 @@ myFunction();
 
 For example, `summation(4)` should return 10 because 1+2+3+4 is 10. Note, you may use a for loop for this function if you wish */
 
+
+/**
+ * Summation
+ *
+ * @param {Number} n
+ * @returns {Number} the sum of every positive integer up to and including n
+ */
 function summation(n) {
   let total = 0;
 
-  // this function definition creates a closure around 'total'
+  // this nested function creates a closure around 'total'
   function addToTotal(n) {
     total += n;
   }
@@ -42,35 +49,47 @@ function summation(n) {
 
   return total;
 }
-console.log(summation(4));
 
 
-// it's better with recursion:
+/**
+ * Summation... using recursion (but no closure)
+ *
+ * @param {Number} n
+ * @returns {Number} the sum of every positive integer up to and including n
+ */
 function summationRecursive(n) {
   if (n > 0)
     return n + summationRecursive(n - 1);
   else
     return 0;
 }
-console.log(summationRecursive(5));
 
 
-// it's more concise (and less readable) with the ternary operator.
-function summationRecursiveTernary(n) {
-  return n <= 0 ? 0 : n + summationRecursive(n - 1);
-}
-console.log(summationRecursiveTernary(6));
-
-
-// it's doable in one line. Plus it's cool because it goes '=> n <=' which looks neat
+/**
+ * Summation... in a one-line arrow function
+ *
+ * @param {Number} n
+ * @returns {Number} the sum of every positive integer up to and including n
+ */
 const summationArrow = n => n <= 0 ? 0 : n + summationRecursive(n - 1);
-console.log(summationArrow(7));
 
 
 
 // 🦁🦁🦁 Topic 2: ADVANCED Array Methods 🦁🦁🦁
 // Given this zoo data from around the United States, follow the instructions below. Use the specific array methods in the requests below to solve the problems.
 
+/**
+ * A zoo animal
+ * @typedef {Object} Animal
+ * @property {string} animal_name - the common name of the animal
+ * @property {number} population - the zoo's current animal count
+ * @property {string} scientific_name - the animal's genus and species
+ * @property {string} state - the animal's origin state
+ * */
+
+/**
+ * @const {Animal[]}
+ */
 const zooAnimals = [
   { animal_name: "Jackal, asiatic", population: 5, scientific_name: "Canis aureus", state: "Kentucky" },
   { animal_name: "Screamer, southern", population: 1, scientific_name: "Chauna torquata", state: "Alabama" },
@@ -90,7 +109,12 @@ Use animalNames to populate and return the displayNames array with only the anim
 displayNames will be an array of strings, and each string should follow this pattern: "name: {name}, scientific: {scientific name}"
 */
 
-/** @param {zooAnimals} animals */
+/**
+ * Generates a list of animals with both common and scientific names
+ *
+ * @param {Animal[]} animals - an array of animal data
+ * @returns {string[]} an array of animal names
+ */
 function animalNames(animals) {
   const displayNames = [];
   animals.forEach(a => {
@@ -98,16 +122,6 @@ function animalNames(animals) {
   });
   return displayNames;
 }
-console.log(animalNames(zooAnimals));
-
-
-// .map is better for this
-/** @param {zooAnimals} animals */
-function animalNamesMap(animals) {
-  return animals.map(a => `name: ${a.animal_name}, scientific: ${a.scientific_name}`);
-}
-console.log(animalNamesMap(zooAnimals));
-
 
 
 /* 🦁🦁🦁 Request 2: .map() 🦁🦁🦁
@@ -116,7 +130,12 @@ Using lowerCaseNames use .map() to create a new array of strings with the animal
 For example: ['jackal, asiatic', .....]
 */
 
-/** @param {zooAnimals} animals */
+/**
+ * Returns a list of lower-cased animal names
+ *
+ * @param {Animal[]} animals - an array of animal data
+ * @returns {string[]} animal names, in lower case
+ */
 function lowerCaseNames(animals) {
   return animals.map(a => a.animal_name.toLowerCase());
 }
@@ -127,7 +146,12 @@ The zoo is concerned about animals with a lower population count.
 Using lowPopulationAnimals use .filter() to create a new array of objects which contains only the animals with a population of less than 5.
 */
 
-/** @param {zooAnimals} animals */
+/**
+ * Returns a list of animals with populations below 5
+ *
+ * @param {Animal[]} animals - an array of animal data
+ * @returns {Animal[]} a list of the most endangered animals
+ */
 function lowPopulationAnimals(animals) {
   return animals.filter(a => a.population < 5);
 }
@@ -139,13 +163,18 @@ Using USApop find the total population from the zoos array using the .reduce() m
 Remember the reduce method takes two arguments: a callback (which itself takes two args - the accumulator and the item), and an initial value for the count.
 */
 
-/** @param {zooAnimals} animals */
+/**
+ * Calculates the total population of all animals
+ *
+ * @param {Animal[]} animals - an array of animal data
+ * @returns {number} the total population of ALL animals
+ */
 function USApop(animals) {
   return animals.reduce((n, a) => {
     return n + a.population;
   }, 0);
 }
-console.log(USApop(zooAnimals));
+
 
 
 // 🦁🦁🦁 Callbacks 🦁🦁🦁
@@ -156,6 +185,14 @@ console.log(USApop(zooAnimals));
   * The consume function should return the invocation of cb, passing a and b into cb as arguments
 */
 
+/**
+ * A higher-order function that returns the result of a callback with the provided arguements
+ *
+ * @param {any} a - the first parameter
+ * @param {any} b - the second parameter
+ * @param {(a: any, b: any) => any} cb - the callback function
+ * @returns {any} the result of calling cb with a and b
+ */
 function consume(a, b, cb) {
   return cb(a, b);
 }
@@ -164,20 +201,40 @@ function consume(a, b, cb) {
 /* 🦁🦁🦁 Step 2: Create several functions to callback with consume(); 🦁🦁🦁 */
 // 🦁🦁🦁 Use add to return the sum of two numbers 🦁🦁🦁
 
+/**
+ * Adds two numbers
+ *
+ * @param {number} a - a number to be added
+ * @param {number} b - a number to be added... to
+ * @returns {number} the sum of a and b
+ */
 function add(a, b) {
   return a + b;
 }
 
 // 🦁🦁🦁 Use multiply to return the product of two numbers 🦁🦁🦁
 
+/**
+ * Returns the product of two numbers
+ *
+ * @param {number} a a number to be multiplied
+ * @param {number} b the mutliplicand
+ * @returns {number} the product of a and b
+ */
 function multiply(a, b) {
   return a * b;
 }
 
-// abcb? cbab! addabab mabab!
 
 // 🦁🦁🦁 Use greeting to accept a first and last name and return "Hello {first-name} {last-name}, nice to meet you!" 🦁🦁🦁
 
+/**
+ * Generates a greeting for a given person's name
+ *
+ * @param {string} firstName - the greeter's first name
+ * @param {string} lastName - the greater's last name
+ * @returns {string} a friendly greeting
+ */
 function greeting(firstName, lastName) {
   return `Hello ${firstName} ${lastName}, nice to meet you!`
 }
@@ -195,12 +252,26 @@ console.log(consume("Mary", "Poppins", greeting)); // Hello Mary Poppins, nice t
 /* They are already arrow function */
 
 
+
 // 🐴🐴🐴 Topic 3: Prototypes 🐴🐴🐴 //
 //🐴🐴🐴 Task: You are to build a cuboid maker that can return values for a cuboid's volume or surface area. Cuboids are similar to cubes but do not have even sides. Follow the steps in order to accomplish this challenge. 🐴🐴🐴
 /* 🐴🐴🐴 Step 1: Base Constructor 🐴🐴🐴
  Use the constructor function named CuboidMaker to accept properties for length, width, and height which can be initialized as an object
 */
 
+/**
+ * Cuboid Attributes
+ * @typedef {Object} CuboidAttributes
+ * @property {number} length
+ * @property {number} width
+ * @property {number} height
+ */
+
+/**
+ * Constructor function for a Cuboid object
+ *
+ * @param {CuboidAttributes} attrs - the attributes for the cuboid
+ */
 function CuboidMaker(attrs) {
   this.length = attrs.length;
   this.width = attrs.width;
@@ -243,17 +314,32 @@ console.log(cuboid.surfaceArea()); // 130
 
 // 🦄🦄🦄 Topic 4: Classes 🦄🦄🦄 //
 //🦄🦄🦄 1. Take your prototypes from above and refactor into class syntax. Please rename your class CuboidMakerTwo and your object cuboidTwo 🦄🦄🦄
+
+/** Class representing a Cuboid */
 class CuboidMakerTwo {
+
+  /**
+   * Create a Cuboid
+   * @param {CuboidAttributes} attrs
+   */
   constructor(attrs) {
     this.length = attrs.length;
     this.height = attrs.height;
     this.width = attrs.width;
   }
 
+  /**
+   * Returns the volume of this cuboid
+   * @returns {number} the volume
+   */
   volume() {
     return this.length * this.width * this.height;
   }
 
+  /**
+   * Returns the surface area of this cuboid
+   * @returns {number} the surface area
+   */
   surfaceArea() {
     return 2 * (this.length * this.width + this.length * this.height + this.width * this.height);
   }
@@ -270,23 +356,38 @@ console.log(cuboidTwo.surfaceArea()); // 130
 
 // 🦄 💪 Stretch Task: Extend the base class CuboidMaker with a sub class called CubeMaker.  Find out the formulas for volume and surface area for cubes and create those methods using the dimension properties from CuboidMaker.  Test your work by logging out your volume and surface area. 🦄 💪
 
+/**
+ * Class representing a cube
+ * @extends CuboidMaker
+ */
 class CubeMaker extends CuboidMaker {
-  // only one measurement is required to build a cube, since length, width, and height are equal
+
+  /**
+   * Creates a cube
+   * @param {number} side the length of a cube's side
+   */
   constructor(side) {
     super({ width: side, height: side, length: side });
+
+    /** @member {number} the cube's side length */
+    this.side = side;
   }
 
-  // Volume of a cube is length * width * height, same as the base class
-  // redefining volume() here isn't necessary
+  /**
+   * Get the volume of the cube
+   * @returns {number} the volume
+   */
   volume() {
-    return super.volume();
+    return this.side * this.side * this.side;
   }
 
-  // Surface area of a cube is 2 * (l*w + w*h + l*h), same as the base class
-  // redefining surfaceArea() here isn't necessary [so I won't]
-  // surfaceArea() {
-  //   reeturn super.surfaceArea();
-  // }
+  /**
+   * Get the surface area of the cube
+   * @returns {number} the surface area
+   */
+  surfaceArea() {
+    return 6 * this.side * this.side;
+  }
 }
 
 const cube = new CubeMaker(1);
