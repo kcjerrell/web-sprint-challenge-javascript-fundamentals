@@ -34,28 +34,33 @@ Edit this document to include your answers after each question. Make sure to lea
 		 you DO need the results. It applies a function to each item in an array, and returns the result of each as a new
 		 array.
 
+
 2. Explain the difference between a callback and a higher order function.
 
 		 A higher order function is a function that takes other functions as arguements. The functions supplied to such a
 		 function are referred to as "callback" functions. IE: higherOrderFunction(callbackFunctionA, callbackFunctionB);
 
+
 3. What is closure?
 
 		 A closure is a way of capturing a function's lexical scope, at the time of its creation, so it can be accessed
-		 by that function later, even after the variables it uses have gone out of scope. A sneaky side effect of this is
-		 that it enables "private" variables, which can only be accessed by function that created the closure.
+		 by that function later, even after the variables it uses have otherwise gone out of scope. A sneaky side effect
+		 of this is that it enables "private" variables, which can only be accessed by function that created the closure.
+
 
 4. Describe the four rules of the 'this' keyword.
 
 		 1 - This is not all - or at least it shouldn't be. (When in the global scope, this refers to the window. Don't do that.)
 		 2 - When invoking a function on an object, like.so(), this in so() is like.
 		 3 - Inside of a new ConstructorFunction(), this refers to the new object being constructed.
-		 4 - We can explicity define what this refers to using .call() or .apply().
+		 4 - This is that and that is this when you .call(that) or .apply(that).
+
 
 5. Why do we need super() in an extended class?
 		 super() is required so the base class constructor can run. This is how your child class actually inherits the
 		 members of the parent class. Behind the scenes, super() takes the prototype of the base class and applies it to
 		 your new class.
+
 
 You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade.
 
@@ -80,17 +85,17 @@ Your finished project must include all of the following requirements
 #### Task A: Closure
 
 This challenge takes a look at closures as well as scope.
-* [ ] Find this challenge in the index.js file. Read the instructions carefully!
+* [x] Find this challenge in the index.js file. Read the instructions carefully!
 
 #### Task B: Objects and Arrays
 
 Test your knowledge of advanced array methods and callbacks.
-* [ ] Find this challenge in the index.js file. Read the instructions carefully!
+* [x] Find this challenge in the index.js file. Read the instructions carefully!
 
 #### Task C: Prototypes
 
 Create constructors, bind methods, and create cuboids in this prototypes challenge.
-* [ ] Find this challenge in the index.js file. Read the instructions carefully!
+* [x] Find this challenge in the index.js file. Read the instructions carefully!
 
 #### Task D: Classes
 
@@ -106,4 +111,3 @@ There are a few stretch problems found throughout the files, don't work on them 
 ## Submission format
 
 See Canvas for submission instructions
-
